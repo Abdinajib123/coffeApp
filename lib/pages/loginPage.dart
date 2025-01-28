@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/data/login_provider.dart';
 import 'package:flutter_project/pages/dashboard.dart';
 import 'package:flutter_project/pages/signup.dart';
-
+import 'package:provider/provider.dart';
 
 class Loginpage extends StatelessWidget {
   const Loginpage({super.key});
@@ -36,8 +37,8 @@ class Loginpage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: TextField(
-                      onChanged: (value) => {},
-                          // context.read<LoginProvider>().getUsername(value),
+                      onChanged: (value) => 
+                          context.read<LoginProvider>().getemail(value),
                       decoration: const InputDecoration(
                         labelText: 'Username',
                         labelStyle: TextStyle(color: Colors.black),
@@ -46,17 +47,14 @@ class Loginpage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    margin: const EdgeInsets.all(12),
+                    padding:  EdgeInsets.only(left: 8.0),
+                    margin:  EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: TextField(
-                      onChanged: (value) =>{
-
-                      },
-                          // context.read<LoginProvider>().getpassword(value),
+                      onChanged: (value) =>context.read<LoginProvider>().getpassword(value),
                       obscureText: true,
                       decoration: const InputDecoration(
                         labelText: 'Password',
@@ -85,9 +83,7 @@ class Loginpage extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (_)=>Dashboard(),));
-                            },
+                            onPressed: () =>context.read<LoginProvider>().login(context),
                             child: const Text(
                               'Login',
                               style:
