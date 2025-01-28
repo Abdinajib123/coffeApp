@@ -40,7 +40,7 @@ class Loginpage extends StatelessWidget {
                       onChanged: (value) => 
                           context.read<LoginProvider>().getemail(value),
                       decoration: const InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Emial',
                         labelStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none,
                       ),

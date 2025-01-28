@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/data/signup_provider.dart';
 import 'package:flutter_project/pages/loginPage.dart';
+import 'package:provider/provider.dart';
 
 class Signup extends StatelessWidget {
   const Signup({super.key});
@@ -34,7 +36,7 @@ class Signup extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12)
                     ),
                     child: TextField(
-                      
+                      onChanged: (value)=>context.read<SignupProvider>().getname(value),
                       decoration: InputDecoration(
                         labelText: 'Name',
                         labelStyle: TextStyle(color: Colors.black),
@@ -50,9 +52,9 @@ class Signup extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12)
                     ),
                     child: TextField(
-                      
+                      onChanged: (value)=>context.read<SignupProvider>().getemail(value),
                       decoration: InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Email',
                         labelStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none
                       ),
@@ -66,7 +68,7 @@ class Signup extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12)
                     ),
                     child: TextField(
-                      
+                      onChanged: (value)=>context.read<SignupProvider>().getpassword(value),
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: 'password',
@@ -86,9 +88,8 @@ class Signup extends StatelessWidget {
                             elevation: 0,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
                           ),
-                          onPressed: ()=>{
-                             Navigator.push(context, MaterialPageRoute(builder: (_)=>Loginpage(),)) 
-                          }, child: Text('Sign up',style: TextStyle(color: Colors.black,fontSize: 20),)),
+                          onPressed: ()=>context.read<SignupProvider>().register(context),
+                           child: Text('Sign up',style: TextStyle(color: Colors.black,fontSize: 20),)),
                       ))
                     ],
                   ),

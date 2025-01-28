@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/data/login_provider.dart';
+import 'package:flutter_project/data/signup_provider.dart';
 import 'package:flutter_project/pages/home.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_)=>SignupProvider()),
     ChangeNotifierProvider(
       create: (_) => LoginProvider(),
     ),
