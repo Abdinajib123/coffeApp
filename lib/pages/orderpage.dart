@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/controllers/cart_provider.dart';
 import 'package:provider/provider.dart';
 
-class CartPage extends StatelessWidget {
+class Orderpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Review Order'),
+        title: Text('Review Order', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Color(0xff38220f), // Match the color to your image
+        centerTitle: true,
       ),
       body: Consumer<CartProvider>(
         builder: (context, cartProvider, child) {
-          double total = 0.0; // To calculate the total price
-          // Loop through all items to calculate the total price
+          double total = 0.0;
+          // Calculate the total price
           cartProvider.listItems.forEach((item) {
             total += item.price * item.quantity;
           });
 
           return cartProvider.listItems.isEmpty
-              ? Center(child: Text('Your cart is empty'))
+              ? Center(child: Text('Your cart is empty', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))
               : Column(
                   children: [
                     Expanded(
@@ -28,45 +30,60 @@ class CartPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final cartItem = cartProvider.listItems[index];
                           return Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 10),
+                            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            elevation: 3,
                             child: ListTile(
-                              leading: Image.network(
-                                cartItem.imgUrl,
-                                width: 60,
-                                height: 60,
-                                fit: BoxFit.cover,
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  cartItem.imgUrl,
+                                  width: 60,
+                                  height: 60,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              title: Text(cartItem.name),
+                              title: Text(cartItem.name, style: TextStyle(fontWeight: FontWeight.bold)),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('⭐ ${cartItem.shortDescription}'),
+                                  Text('⭐ ${cartItem.shortDescription}', style: TextStyle(fontSize: 12)),
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("\$${cartItem.price}"),
+                                      Text("\$${cartItem.price}", style: TextStyle(fontWeight: FontWeight.bold)),
                                       Row(
                                         children: [
+                                          // Subtract button with style
                                           IconButton(
-                                            icon: Icon(Icons.remove),
+                                            icon: Icon(Icons.remove, size: 20),
+                                            style: IconButton.styleFrom(
+                                              backgroundColor: Color(0xff38220f), // Background color
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(250), // Rounded button
+                                              ),
+                                            ),
                                             onPressed: () {
-                                              cartProvider
-                                                  .decrementItem(cartItem.id);
+                                              cartProvider.decrementItem(cartItem.id);
                                             },
                                           ),
-                                          Text(cartItem.quantity.toString()),
+                                          // Quantity text
+                                          Text(cartItem.quantity.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
+                                          // Add button with style
                                           IconButton(
-                                            icon: cartItem.isAdded
-                                                ? Icon(Icons.check)
-                                                : Icon(Icons.add),
+                                            icon: cartItem.isAdded ? Icon(Icons.check, size: 20) : Icon(Icons.add, size: 20),
+                                            style: IconButton.styleFrom(
+                                              backgroundColor: Color(0xff38220f), // Background color
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(250), // Rounded button
+                                              ),
+                                            ),
                                             onPressed: () {
-                                              cartProvider.incrementItem(
-                                                  cartItem.id);
-                                              cartItem.isAdded =
-                                                  !cartItem.isAdded; // Toggle the state
-                                              cartProvider.notifyListeners(); // Notify listeners for the update
+                                              cartProvider.incrementItem(cartItem.id);
+                                              cartItem.isAdded = !cartItem.isAdded;
+                                              cartProvider.notifyListeners();
                                             },
                                           ),
                                         ],
@@ -76,9 +93,8 @@ class CartPage extends StatelessWidget {
                                 ],
                               ),
                               trailing: IconButton(
-                                icon: Icon(Icons.delete),
+                                icon: Icon(Icons.delete, color: Colors.red),
                                 onPressed: () {
-                                  // Directly call deleteItemById with cartItem.id
                                   cartProvider.deleteItemById(cartItem.id);
                                 },
                               ),
@@ -87,7 +103,6 @@ class CartPage extends StatelessWidget {
                         },
                       ),
                     ),
-                    // Second Expanded widget for the price details
                     Expanded(
                       flex: 2,
                       child: Padding(
@@ -97,22 +112,25 @@ class CartPage extends StatelessWidget {
                           children: [
                             Text(
                               'Total: \$${total.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xff38220f)),
                             ),
                             SizedBox(height: 10),
-                            Text('Shipping Charges: \$0.00'),
+                            Text('Shipping Charges: \$0.00', style: TextStyle(fontSize: 16)),
                             SizedBox(height: 10),
-                            SizedBox(height: 20),
-                            ElevatedButton(
-                              onPressed: () {
-                                // Handle the place order action
-                              },
-                              child: Text('Place Order'),
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(double.infinity, 45),
+                            Container(
+                              width: double.infinity,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: Color(0xff38220f),
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                            ),
+                              child: Center(
+                                child: Text(
+                                  'Place Order',
+                                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),

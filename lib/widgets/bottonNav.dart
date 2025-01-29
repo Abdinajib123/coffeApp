@@ -1,55 +1,84 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_project/pages/dashboard.dart';
-import 'package:flutter_project/pages/orderpage.dart';
-import 'package:flutter_project/pages/profile_page.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_project/pages/dashboard.dart';  // Import Dashboard
+// import 'package:flutter_project/pages/orderpage.dart';
+// import 'package:flutter_project/pages/search.dart';
+// import 'package:flutter_project/pages/profile_page.dart';  // Import ProfilePage
 
-class bottonNav extends StatefulWidget {
-   bottonNav({
-    super.key,
-  });
+// class Bottonnav extends StatefulWidget {
+//   const Bottonnav({super.key});
 
-  @override
-  State<bottonNav> createState() => _bottonNavState();
-}
+//   @override
+//   _BottonnavState createState() => _BottonnavState();
+// }
 
-class _bottonNavState extends State<bottonNav> {
-  @override
-  int curentindex=0;
+// class _BottonnavState extends State<Bottonnav> {
+//   int _currentIndex = 0;
 
-  List<Widget>_pagesdisplays=[
-    Dashboard(),
-    CartPage(),
-    ProfilePage(),
-    ProfilePage(),
-  ];
+//   final List<Widget> _pages = [
+//     // Placeholder text for each tab's page
+//     Text('Home Page'),
+//     Text('Cart Page'),
+//     Text('Search Page'),
+//     Text('Profile Page'),
+//   ];
 
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body:_pagesdisplays[curentindex] ,
-      bottomNavigationBar: BottomNavigationBar(
-      currentIndex: curentindex,
-      onTap: (value){
-       setState(() {
-          curentindex=value;
-       });
-      },
-        selectedItemColor: Color(0xff38220f),
-        unselectedItemColor: Colors.black,
-        showUnselectedLabels: true,
-        items: [
-          BottomNavigationBarItem(
-              icon: GestureDetector(onTap: () {}, child: Icon(Icons.home)),
-              label: 'Home'),
-               BottomNavigationBarItem(
-              icon: GestureDetector(
-                  onTap: () {}, child: Icon(Icons.shopping_cart)),
-              label: 'Carts'),
-          BottomNavigationBarItem(
-              icon: GestureDetector(onTap: () {}, child: Icon(Icons.list)),
-              label: 'Search'),
-         
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
-        ]),
-    );
-  }
-}
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       _currentIndex = index;
+//     });
+
+//     // Navigate based on the selected index
+//     if (index == 0) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(builder: (context) => Dashboard()),  // Navigate to the Dashboard page
+//       );
+//     } else if (index == 1) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(builder: (context) => Orderpage()),  // Navigate to the OrderPage
+//       );
+//     } else if (index == 2) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(builder: (context) => Search()),  // Navigate to the SearchPage
+//       );
+//     } else if (index == 3) {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(builder: (context) => ProfilePage()),  // Navigate to the ProfilePage
+//       );
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: _pages[_currentIndex],  // This just shows text for now, replace with actual pages
+//       ),
+//       bottomNavigationBar: BottomNavigationBar(
+//         currentIndex: _currentIndex,
+//         onTap: _onItemTapped,  // Trigger navigation on tab change
+//         items: const <BottomNavigationBarItem>[
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.home),
+//             label: 'Home',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.shopping_cart),
+//             label: 'Cart',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.search),
+//             label: 'Search',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(Icons.person),
+//             label: 'Profile',
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

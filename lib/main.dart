@@ -5,6 +5,8 @@ import 'package:flutter_project/controllers/product_provider.dart';
 import 'package:flutter_project/controllers/signup_provider.dart';
 import 'package:flutter_project/pages/dashboard.dart';
 import 'package:flutter_project/pages/home.dart';
+import 'package:flutter_project/pages/orderpage.dart';
+import 'package:flutter_project/pages/search.dart';
 import 'package:flutter_project/widgets/bottonNav.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Dashboard(),
+      home: Orderpage(),
     );
   }
 }
