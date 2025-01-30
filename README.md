@@ -5,7 +5,7 @@ coffe project/
 │── ios/                    # iOS specific files
 │── lib/                    # Main Flutter codebase
 │   ├── controllers/        # State management and providers
-│   │   ├── cart_provider.dart
+│   │   ├── cart_provider.dart 
 │   │   ├── login_provider.dart
 │   │   ├── product_provider.dart
 │   │   ├── signup_provider.dart
