@@ -1,16 +1,31 @@
-# flutter_project
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+coffe project/
+│── android/                # Android specific files
+│── build/                  # Build output files
+│── images/                 # Image assets
+│── ios/                    # iOS specific files
+│── lib/                    # Main Flutter codebase
+│   ├── controllers/        # State management and providers
+│   │   ├── cart_provider.dart
+│   │   ├── login_provider.dart
+│   │   ├── product_provider.dart
+│   │   ├── signup_provider.dart
+│   ├── models/             # Data models
+│   │   ├── login_model.dart
+│   │   ├── productModel.dart
+│   ├── pages/              # UI pages
+│   │   ├── dashboard.dart
+│   │   ├── detail_page.dart
+│   │   ├── home.dart
+│   │   ├── loginPage.dart
+│   │   ├── orderpage.dart
+│   │   ├── profile_page.dart
+│   │   ├── search.dart
+│   │   ├── see_all_page.dart
+│   │   ├── signup.dart
+│   ├── widgets/            # Reusable UI components
+│   │   ├── bottonNav.dart
+│   ├── constants.dart      # Global constants
+│   ├── main.dart           # Entry point of the app
+│── pubspec.yaml            # Dependencies and configurations
+│── pubspec.lock            # Lock file for dependencies
+│── README.md               # Project documentation
