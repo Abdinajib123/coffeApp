@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/constant.dart';
 import 'package:flutter_project/pages/dashboard.dart';
+import 'package:flutter_project/widgets/bottonNav.dart';
 import 'package:http/http.dart' as http;
 
 class LoginProvider extends ChangeNotifier {
@@ -34,7 +35,7 @@ class LoginProvider extends ChangeNotifier {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => Dashboard(),
+          builder: (_) => bottonNav(),
         ),
       );
     }else{

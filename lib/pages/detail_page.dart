@@ -28,7 +28,7 @@ class DetailPage extends StatelessWidget {
             height: 250,
             color: Colors.white,
             width: double.infinity,
-            child: Image.asset(imgurl,fit: BoxFit.cover,),
+            child: Image.network(imgurl,fit: BoxFit.cover,),
             
           ),
           Expanded(

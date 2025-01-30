@@ -6,138 +6,178 @@ class Orderpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff38220f),
       appBar: AppBar(
-        title: Text('Review Order', style: TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Color(0xff38220f), // Match the color to your image
-        centerTitle: true,
+        title: Text('Review Order'),
       ),
-      body: Consumer<CartProvider>(
-        builder: (context, cartProvider, child) {
-          double total = 0.0;
-          // Calculate the total price
-          cartProvider.listItems.forEach((item) {
-            total += item.price * item.quantity;
-          });
+      body: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Consumer<CartProvider>(
+          builder: (context, cartProvider, child) {
+            double total = 0.0;
+            // Calculate the total price
+            cartProvider.listItems.forEach((item) {
+              total += item.price * item.quantity;
+            });
 
-          return cartProvider.listItems.isEmpty
-              ? Center(child: Text('Your cart is empty', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)))
-              : Column(
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: ListView.builder(
-                        itemCount: cartProvider.listItems.length,
-                        itemBuilder: (context, index) {
-                          final cartItem = cartProvider.listItems[index];
-                          return Card(
-                            margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            elevation: 3,
-                            child: ListTile(
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  cartItem.imgUrl,
-                                  width: 60,
-                                  height: 60,
-                                  fit: BoxFit.cover,
+            return cartProvider.listItems.isEmpty
+                ? Center(
+                    child: Text(
+                      'Your cart is empty',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  )
+                : Column(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: ListView.builder(
+                          itemCount: cartProvider.listItems.length,
+                          itemBuilder: (context, index) {
+                            final cartItem = cartProvider.listItems[index];
+                            return Card(
+                              margin:
+                                  EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                              child: Container(
+                                height: 100, // Set a fixed height for the card
+                                child: Row(
+                                  children: [
+                                    // Image Section
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                      ),
+                                      child: Container(
+                                        width: 100,
+                                        height: 100, // Match card height
+                                        child: Image.network(
+                                          cartItem.imgUrl,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    // Product Details Section
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 10),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              cartItem.name,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Text(cartItem.shortDescription),
+                                            SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("\$${cartItem.price}"),
+                                                Row(
+                                                  children: [
+                                                    IconButton(
+                                                      icon: Icon(Icons.remove),
+                                                      onPressed: () {
+                                                        cartProvider.decrementItem(
+                                                            cartItem.id);
+                                                      },
+                                                    ),
+                                                    Text(cartItem.quantity.toString()),
+                                                    IconButton(
+                                                      icon: Icon(Icons.add),
+                                                      onPressed: () {
+                                                        cartProvider.incrementItem(
+                                                            cartItem.id);
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    // Delete Button
+                                    IconButton(
+                                      icon: Icon(Icons.delete),
+                                      onPressed: () {
+                                        cartProvider.deleteItemById(cartItem.id);
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
-                              title: Text(cartItem.name, style: TextStyle(fontWeight: FontWeight.bold)),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('⭐ ${cartItem.shortDescription}', style: TextStyle(fontSize: 12)),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("\$${cartItem.price}", style: TextStyle(fontWeight: FontWeight.bold)),
-                                      Row(
-                                        children: [
-                                          // Subtract button with style
-                                          IconButton(
-                                            icon: Icon(Icons.remove, size: 20),
-                                            style: IconButton.styleFrom(
-                                              backgroundColor: Color(0xff38220f), // Background color
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(250), // Rounded button
-                                              ),
-                                            ),
+                            );
+                          },
+                        ),
+                      ),
+                      // Total price & Checkout section
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 15.0, right: 15, top: 50),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Total: \$${total.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Shipping Charges: \$0.00',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Show an alert dialog when button is pressed
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Order Placed'),
+                                        content: Text(
+                                            'You have placed your order successfully'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('OK'),
                                             onPressed: () {
-                                              cartProvider.decrementItem(cartItem.id);
-                                            },
-                                          ),
-                                          // Quantity text
-                                          Text(cartItem.quantity.toString(), style: TextStyle(fontWeight: FontWeight.bold)),
-                                          // Add button with style
-                                          IconButton(
-                                            icon: cartItem.isAdded ? Icon(Icons.check, size: 20) : Icon(Icons.add, size: 20),
-                                            style: IconButton.styleFrom(
-                                              backgroundColor: Color(0xff38220f), // Background color
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(250), // Rounded button
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              cartProvider.incrementItem(cartItem.id);
-                                              cartItem.isAdded = !cartItem.isAdded;
-                                              cartProvider.notifyListeners();
+                                              Navigator.of(context).pop();
                                             },
                                           ),
                                         ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              trailing: IconButton(
-                                icon: Icon(Icons.delete, color: Colors.red),
-                                onPressed: () {
-                                  cartProvider.deleteItemById(cartItem.id);
+                                      );
+                                    },
+                                  );
                                 },
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Total: \$${total.toStringAsFixed(2)}',
-                              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xff38220f)),
-                            ),
-                            SizedBox(height: 10),
-                            Text('Shipping Charges: \$0.00', style: TextStyle(fontSize: 16)),
-                            SizedBox(height: 10),
-                            Container(
-                              width: double.infinity,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: Color(0xff38220f),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Place Order',
-                                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                                child: Text('Place Order',style: TextStyle(   color: Color(0xff38220f),),),
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize:
+                                      Size(double.infinity, 60), // Button size
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
                                 ),
                               ),
-                            )
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                );
-        },
+                    ],
+                  );
+          },
+        ),
       ),
     );
   }

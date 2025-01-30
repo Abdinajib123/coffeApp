@@ -66,7 +66,7 @@ class _DashboardState extends State<Dashboard> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 8),
                 Center(
                   child: Text(
                     'Lets find Your',
@@ -139,7 +139,7 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+       
           Expanded(
             child: FutureBuilder<List<Productmodel>>(
               future: context.read<ProductProvider>().getProduct(),

@@ -61,13 +61,13 @@ class CartProvider extends ChangeNotifier {
 }
 
 class CartItem {
-  String id;  
+  String id;
   String name;
   double price;
   String shortDescription;
   String imgUrl;
-  int quantity;  
-  bool isAdded;  // Track whether the item is added to the cart
+  int quantity;
+ 
 
   CartItem({
     required this.id,
@@ -76,8 +76,7 @@ class CartItem {
     required this.price,
     required this.shortDescription,
     this.quantity = 1,
-    this.isAdded = false, // Default to false (not added to cart)
+
   });
 }
-
 
