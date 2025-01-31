@@ -1,22 +1,12 @@
 # Coffee Project
-
-## Root Directory
-- pubspec.yaml - Dependencies and configurations
-- pubspec.lock - Lock file for dependencies
-- README.md - Project documentation
+- front-end flutter
+- back-end node js & mongodb
+- packages:
+        - provider for statmanagment
+        - provider for statmanagment 
 
 ## Folders
-### android/
-- Android specific files
- 
-### build/
-- Build output files
 
-### images/
-- Image assets
-
-### ios/
-- iOS specific files
 
 ### lib/ (Main Flutter codebase)
 #### controllers/ (State management and providers)
